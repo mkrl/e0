@@ -1,9 +1,11 @@
+'use client'
+
 import { useStore } from '@nanostores/react'
 import { $code, $generationFinished } from '@/stores/code'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { $previewLink } from '@/stores/preview'
-import Editor from '@monaco-editor/react';
+import Editor from '@monaco-editor/react'
 
 export const Preview = () => {
   const [showCode, setShowCode] = useState(true)
@@ -34,28 +36,28 @@ export const Preview = () => {
         </button>
       </div>
       {showCode ? (
-          <Editor
-            className='h-full'
-            value={code}
-            defaultLanguage="typescript"
-            path='index.tsx'
-            beforeMount={(monaco) => {
-              monaco?.languages.typescript.typescriptDefaults.setCompilerOptions({
-                // This stands for JSX = React
-                jsx: 2
-              });
+        <Editor
+          className="h-full"
+          value={code}
+          defaultLanguage="typescript"
+          path="index.tsx"
+          beforeMount={(monaco) => {
+            monaco?.languages.typescript.typescriptDefaults.setCompilerOptions({
+              // This stands for JSX = React
+              jsx: 2
+            })
 
-              monaco?.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-                noSemanticValidation: true,
-                noSyntaxValidation: true,
-                onlyVisible: true
-              })
-            }}
-            options={{
-              readOnly: true,
-              minimap: { enabled: true, autohide: true }
-            }}
-          />
+            monaco?.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+              noSemanticValidation: true,
+              noSyntaxValidation: true,
+              onlyVisible: true
+            })
+          }}
+          options={{
+            readOnly: true,
+            minimap: { enabled: true, autohide: true }
+          }}
+        />
       ) : (
         <iframe
           className="h-full w-full"
@@ -63,7 +65,7 @@ export const Preview = () => {
           loading="lazy"
           src={previewLink}
         />
-        )
+      )
       }
 
     </motion.div>
