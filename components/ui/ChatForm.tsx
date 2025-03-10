@@ -8,7 +8,7 @@ type ChatFormProps = {
 
 export const ChatForm = ({ handleSubmit, input, handleInputChange }: ChatFormProps) => (
   <form
-    className="flex flex-col gap-2 relative items-center"
+    className="flex flex-col gap-2 relative items-center pb-20 w-full"
     onSubmit={(event) => {
       handleSubmit(event)
     }}

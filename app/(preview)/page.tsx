@@ -7,6 +7,9 @@ import { toast } from 'sonner'
 import { Message } from '@/components/ui/Message'
 import Image from 'next/image'
 import { ChatForm } from '@/components/ui/ChatForm'
+import { Preview } from '@/components/ui/Preview'
+import { useStore } from '@nanostores/react'
+import { $generationStarted } from '@/stores/code'
 
 
 export default function Home() {
@@ -15,6 +18,8 @@ export default function Home() {
       onError: () =>
         toast.error('You\'ve been rate limited, please try again later!')
     })
+
+  const hasCode = useStore($generationStarted)
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
@@ -28,9 +33,9 @@ export default function Home() {
 
   return (
     <div
-      className="flex flex-row justify-center pb-20 h-dvh bg-white dark:bg-zinc-900"
+      className="flex flex-row justify-center h-dvh bg-white dark:bg-zinc-900"
     >
-      <div className="flex flex-col justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 w-1/2 items-center">
         {messages.length > 0 ? (
           <div
             className="flex flex-col gap-2 h-full w-dvw items-center overflow-y-scroll">
@@ -67,6 +72,7 @@ export default function Home() {
           handleInputChange={handleInputChange}
         />
       </div>
+      {hasCode && <Preview />}
     </div>
   )
 }

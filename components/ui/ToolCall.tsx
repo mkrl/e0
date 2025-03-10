@@ -1,19 +1,31 @@
 import { motion } from 'framer-motion'
 import { ToolInvocationUIPart } from '@ai-sdk/ui-utils'
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
 import { ToolNameType } from '@/types/tools'
-
+import {
+  setCode,
+  setGenerationFinished,
+  setGenerationStarted
+} from '@/stores/code'
+import { Spinner } from '@/components/ui/Spinner'
+import { setLink } from '@/stores/preview'
 
 type ToolCallProps = {
   part: ToolInvocationUIPart
 }
 
 const CreateSandbox = ({ part }: ToolCallProps) => {
+  useEffect(() => {
+    if (part.toolInvocation.state === 'result') {
+      setLink(part.toolInvocation?.result.sandboxLink ?? '')
+    }
+  }, [part.toolInvocation])
+
   switch (part.toolInvocation.state) {
     case 'partial-call':
       return <>Creating sandbox...</>
     case 'result':
-      return <>Sandbox created successfully</>
+      return <>{part.toolInvocation.result.sandboxLink}</>
   }
 }
 const InstallPackage = ({ part }: ToolCallProps) => {
@@ -26,9 +38,24 @@ const InstallPackage = ({ part }: ToolCallProps) => {
   }
 }
 const GenerateCode = ({ part }: ToolCallProps) => {
+  useEffect(() => {
+    setGenerationStarted(true)
+  }, [])
+
+  useEffect(() => {
+    setCode(part.toolInvocation?.args?.generatedCode ?? '')
+    setGenerationFinished(false)
+  }, [part.toolInvocation])
+
+  useEffect(() => {
+    if (part.toolInvocation.state === 'result') {
+      setGenerationFinished(true)
+    }
+  }, [part.toolInvocation.state])
+
   switch (part.toolInvocation.state) {
     case 'partial-call':
-      return <>{part.toolInvocation?.args?.generatedCode}</>
+      return <Spinner/>
     case 'result':
       return <>Code is generated and deployed</>
   }
@@ -69,7 +96,8 @@ export const ToolCall = ({ part }: ToolCallProps) => {
       initial={{ y: 5, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
     >
-      <h3 className="font-bold mb-1">{TOOL_CALL_TITLES[toolName][part.toolInvocation.state]}</h3>
+      <h3
+        className="font-bold mb-1">{TOOL_CALL_TITLES[toolName][part.toolInvocation.state]}</h3>
       <Component part={part}/>
     </motion.div>
   )

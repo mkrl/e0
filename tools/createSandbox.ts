@@ -18,7 +18,11 @@ export const createSandboxTool = tool({
       const packageJsonString = await sandbox.files.read('./package.json')
       const packageJsonFile = JSON.parse(packageJsonString)
 
-      return `Sandbox created with id: "${sandbox.sandboxId}". You can now use the following dependencies: ${Object.keys(packageJsonFile.dependencies).join(', ')}`
+      return {
+        sandboxId: sandbox.sandboxId,
+        sandboxLink: `https://${sandbox.getHost(3000)}`,
+        dependencies: Object.keys(packageJsonFile.dependencies).join(', ')
+      }
     } catch (e) {
       return `Failed to create sandbox: ${e}`
     }

@@ -13,6 +13,7 @@
     "@ai-sdk/react": "^1.1.21",
     "@ai-sdk/ui-utils": "^1.1.17",
     "@e2b/code-interpreter": "^1.0.4",
+    "@monaco-editor/react": "^4.7.0",
     "@nanostores/react": "^0.8.4",
     "@vercel/kv": "^2.0.0",
     "ai": "^4.1.54",
