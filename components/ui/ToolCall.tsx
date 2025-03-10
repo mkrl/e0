@@ -3,9 +3,11 @@ import { ToolInvocationUIPart } from '@ai-sdk/ui-utils'
 import React, { FunctionComponent, useEffect } from 'react'
 import { ToolNameType } from '@/types/tools'
 import {
-  setCode,
+  $codeStore,
+  setCode, setCodePreview,
   setGenerationFinished,
-  setGenerationStarted
+  setGenerationStarted,
+  setActiveFile
 } from '@/stores/code'
 import { Spinner } from '@/components/ui/Spinner'
 import { setLink } from '@/stores/preview'
@@ -43,21 +45,30 @@ const GenerateCode = ({ part }: ToolCallProps) => {
   }, [])
 
   useEffect(() => {
-    setCode(part.toolInvocation?.args?.generatedCode ?? '')
+    setActiveFile(null)
+    // Temporary code preview is required because it streamed together with the code
+    setCodePreview(part.toolInvocation?.args?.generatedCode ?? '')
     setGenerationFinished(false)
-  }, [part.toolInvocation])
+  }, [part.toolInvocation?.args])
 
   useEffect(() => {
     if (part.toolInvocation.state === 'result') {
+      setCode(
+        part.toolInvocation?.args?.filePath,
+        part.toolInvocation?.args?.generatedCode
+      )
+      // @ts-expect-error this is the intended way of removing the item from the store
+      $codeStore.setKey('temp', undefined)
+      setActiveFile(part.toolInvocation?.args?.filePath)
       setGenerationFinished(true)
     }
-  }, [part.toolInvocation.state])
+  }, [part.toolInvocation])
 
   switch (part.toolInvocation.state) {
     case 'partial-call':
       return <Spinner/>
     case 'result':
-      return <>Code is generated and deployed</>
+      return <>Generated and deployed <pre>{part.toolInvocation?.args?.filePath}</pre></>
   }
 }
 

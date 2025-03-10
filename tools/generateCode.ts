@@ -12,9 +12,12 @@ export const generateCodeTool = tool({
       .describe('Sandbox id to run the command in'),
     generatedCode: z
       .string()
-      .describe('Code to generate and run in the sandbox')
+      .describe('Code to generate and run in the sandbox'),
+    filePath: z
+      .string()
+      .describe('Path for the file to write the code to'),
   }),
-  execute: async ({ generatedCode, sandboxId }) => {
+  execute: async ({ generatedCode, sandboxId, filePath }) => {
     console.log('Connecting to sandbox... ', sandboxId)
     try {
       const sandbox = await Sandbox.connect(sandboxId, {
@@ -25,12 +28,12 @@ export const generateCodeTool = tool({
       await sandbox.setTimeout(SANDBOX_TIMEOUT)
       console.log('uploading code... ')
       console.log(generatedCode)
-      console.log('writing content to file pages/index.tsx')
-      const { path } = await sandbox.files.write('./pages/index.tsx', generatedCode)
+      console.log(`writing content to file ${filePath}`)
+      const { path } = await sandbox.files.write(filePath, generatedCode)
       if (!path) {
         return 'Failed to write file'
       }
-      return `Success, access your preview at https://${sandbox.getHost(3000)}`
+      return `Code written to ${path} and deployed`
     } catch (error) {
       return `Failed to connect to sandbox: ${error}`
     }
