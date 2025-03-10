@@ -1,0 +1,1 @@
+export type ToolNameType = 'createSandbox' | 'generateCode' | 'installPackage'
