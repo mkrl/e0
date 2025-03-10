@@ -1,6 +1,7 @@
 import { Sandbox } from '@e2b/code-interpreter'
 import { tool } from 'ai'
 import { z } from 'zod'
+import { SANDBOX_TIMEOUT } from '@/constants/sandbox'
 
 
 export const generateCodeTool = tool({
@@ -11,12 +12,17 @@ export const generateCodeTool = tool({
       .describe('Sandbox id to run the command in'),
     generatedCode: z
       .string()
-      .describe('Code to generate and run in the sandbox'),
+      .describe('Code to generate and run in the sandbox')
   }),
   execute: async ({ generatedCode, sandboxId }) => {
     console.log('Connecting to sandbox... ', sandboxId)
     try {
-      const sandbox = await Sandbox.connect(sandboxId)
+      const sandbox = await Sandbox.connect(sandboxId, {
+        apiKey: process.env.E2B_KEY,
+        accessToken: process.env.E2B_TOKEN,
+        logger: console
+      })
+      await sandbox.setTimeout(SANDBOX_TIMEOUT)
       console.log('uploading code... ')
       console.log(generatedCode)
       console.log('writing content to file pages/index.tsx')

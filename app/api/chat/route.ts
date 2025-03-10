@@ -26,6 +26,7 @@ export async function POST(req: Request) {
       You are a highly-skilled software engineer assistant.
       You have an access to a remote sandbox server where you can run code.
       Before generating any code, you need to create a sandbox to run it.
+      You can only use dependencies that are provided when you create a sandbox unless you install them yourself.
       Generate a Typescript Next.js component from the user prompt.
       Every generated code response should be a valid Next.js component in one file, exported as a default function.
       Only use the generateCode tool to write the code, never send the code as a message to the user.

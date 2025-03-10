@@ -1,6 +1,7 @@
 import { Sandbox } from '@e2b/code-interpreter'
 import { tool } from 'ai'
 import { z } from 'zod'
+import { SANDBOX_TIMEOUT } from '@/constants/sandbox'
 
 
 export const createSandboxTool = tool({
@@ -12,8 +13,7 @@ export const createSandboxTool = tool({
         apiKey: process.env.E2B_KEY,
         accessToken: process.env.E2B_TOKEN,
         logger: console,
-        // 2 minutes
-        timeoutMs: 2 * 60 * 1000
+        timeoutMs: SANDBOX_TIMEOUT
       })
       const packageJsonString = await sandbox.files.read('./package.json')
       const packageJsonFile = JSON.parse(packageJsonString)

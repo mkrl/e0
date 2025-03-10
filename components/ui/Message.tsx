@@ -7,10 +7,11 @@ import { ToolCall } from '@/components/ui/ToolCall'
 
 type MessageProps = {
   message: UIMessage
-  index: number
+  loading?: boolean
+  index?: number
 }
 
-export const Message = ({ message, index }: MessageProps) => {
+export const Message = ({ message, index, loading }: MessageProps) => {
   return (
     <motion.div
       key={message.id}
@@ -31,7 +32,8 @@ export const Message = ({ message, index }: MessageProps) => {
             return <ToolCall key={part.toolInvocation.toolCallId} part={part}/>
           }
         })}
-        <div className="text-zinc-800 dark:text-zinc-300 flex flex-col gap-4">
+        <div
+          className={`${loading ? 'text-zinc-400' : 'text-zinc-800'} dark:text-zinc-300 flex flex-col gap-4`}>
           <Markdown>{message.content}</Markdown>
         </div>
       </div>
