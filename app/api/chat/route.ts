@@ -3,12 +3,15 @@ import { streamText } from 'ai'
 import { createSandboxTool } from '@/tools/createSandbox'
 import { installPackageTool } from '@/tools/installPackage'
 import { generateCodeTool } from '@/tools/generateCode'
+import { unstable_noStore as noStore } from 'next/cache';
+
 
 const openai = createOpenAI({
   apiKey: process.env.OPENAI_KEY
 })
 
 export async function POST(req: Request) {
+  noStore();
   const { messages } = await req.json()
 
 
@@ -42,3 +45,6 @@ export async function POST(req: Request) {
 
   return result.toDataStreamResponse()
 }
+
+export const dynamic = 'force-dynamic';
+

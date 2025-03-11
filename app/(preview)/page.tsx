@@ -10,9 +10,11 @@ import { Preview } from '@/components/ui/Preview'
 import { useStore } from '@nanostores/react'
 import { $generationStarted } from '@/stores/code'
 import { E0Logo } from '@/components/icons'
+import { unstable_noStore as noStore } from 'next/cache';
 
 
 export default function Home() {
+  noStore()
   const { messages, input, handleSubmit, handleInputChange, status } =
     useChat({
       onError: () =>
@@ -77,3 +79,5 @@ export default function Home() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'
