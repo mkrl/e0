@@ -26,14 +26,14 @@ export const Message = ({ message, index, loading }: MessageProps) => {
         {message.role === 'assistant' ? <BotIcon/> : <UserIcon/>}
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-4">
         {message.parts.map(part => {
           if (part.type === 'tool-invocation') {
             return <ToolCall key={part.toolInvocation.toolCallId} part={part}/>
           }
         })}
         <div
-          className={`${loading ? 'text-zinc-400' : 'text-zinc-800'} dark:text-zinc-300 flex flex-col gap-4`}>
+          className={`${loading ? 'text-zinc-200' : 'text-zinc-800 dark:text-white'} flex flex-col gap-4`}>
           <Markdown>{message.content}</Markdown>
         </div>
       </div>

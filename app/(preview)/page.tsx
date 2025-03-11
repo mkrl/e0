@@ -5,11 +5,11 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { toast } from 'sonner'
 import { Message } from '@/components/ui/Message'
-import Image from 'next/image'
 import { ChatForm } from '@/components/ui/ChatForm'
 import { Preview } from '@/components/ui/Preview'
 import { useStore } from '@nanostores/react'
 import { $generationStarted } from '@/stores/code'
+import { E0Logo } from '@/components/icons'
 
 
 export default function Home() {
@@ -33,12 +33,12 @@ export default function Home() {
 
   return (
     <div
-      className="flex flex-row justify-center h-dvh bg-white dark:bg-zinc-900"
+      className="flex flex-row justify-center h-dvh"
     >
       <div className="flex flex-col justify-between gap-4 w-1/2 items-center">
         {messages.length > 0 ? (
-          <div
-            className="flex flex-col gap-2 h-full w-dvw items-center overflow-y-scroll">
+          <section
+            className="flex flex-col gap-4 h-full w-full items-center overflow-y-auto">
             {messages.map((message, index) => (
               <Message message={message} index={index} key={message.id}/>
             ))}
@@ -51,13 +51,13 @@ export default function Home() {
               )}
 
             <div ref={messagesEndRef}/>
-          </div>
+          </section>
         ) : (
           <motion.div
-            className="h-[350px] px-4 w-full md:w-[500px] md:px-0 pt-20 flex flex-col content-center items-center gap-8">
-            <Image src={'/e0.svg'} alt={'e0 logo'} width={300} height={200}/>
+            className="h-[350px] px-4 w-full md:w-[500px] md:px-0 pt-40 flex flex-col content-center items-center gap-8 flex-grow">
+            <E0Logo/>
             <div
-              className="border rounded-lg p-6 flex flex-col gap-4 text-smdark:border-zinc-700">
+              className="flex flex-col gap-4 text-lg">
               <p className="text-center">
                 Securely generate and run apps powered by a variety of LLMs and
                 E2B infrastructure.
@@ -70,6 +70,7 @@ export default function Home() {
           handleSubmit={handleSubmit}
           input={input}
           handleInputChange={handleInputChange}
+          hasMessages={messages.length > 0}
         />
       </div>
       {hasCode && <Preview />}

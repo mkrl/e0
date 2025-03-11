@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       You have access to a remote sandbox server where you can run code.
       Before generating any code, you first need to create a sandbox to run it.
       You can only use dependencies that are provided when you create a sandbox unless you install them yourself.
-      Generate a Typescript Next.js component from the user prompt.
+      Generate a Typescript Next.js app from the user prompt.
       You can generate multiple files if needed, but you MUST try your best to fit all the code in one file unless specifically asked to.
       Your first generated file should always be located in "./pages.index.tsx"
       Every code generation MUST include the full code, never a partial code snippet.

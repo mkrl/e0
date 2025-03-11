@@ -14,11 +14,11 @@ export const CodeTab: React.FC<CodeTabProps> = ({
   }) => {
   return (
     <motion.div
-      className={`flex items-center h-9 px-3 rounded-t-md cursor-pointer border-t border-l border-r transition-colors
+      className={`flex items-center h-9 px-3 rounded-t-md cursor-pointer transition-colors
         max-w-[200px] relative group ${
         isActive
-          ? 'bg-white dark:bg-zinc-800 border-gray-300 dark:border-zinc-700'
-          : 'bg-gray-100 dark:bg-zinc-900 border-gray-200 dark:border-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-850'
+          ? 'bg-zinc-800'
+          : 'bg-zinc-900 hover:bg-zinc-850'
       }`}
       onClick={onClick}
       initial={{ opacity: 0 }}
@@ -27,8 +27,8 @@ export const CodeTab: React.FC<CodeTabProps> = ({
       <span
         className={`text-sm truncate mr-6 ${
           isActive
-            ? 'text-gray-800 dark:text-white'
-            : 'text-gray-600 dark:text-gray-400'
+            ? 'text-white'
+            : 'text-gray-400'
         }`}
         title={fileName}
       >

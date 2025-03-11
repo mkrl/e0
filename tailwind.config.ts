@@ -8,11 +8,22 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        "primary": "rgba(255, 136, 0, 1)",
+        "gray-800": "#1F1F1F",
+        "gray-700": "#525252",
+        "gray-50": "rgba(250, 250, 250, 1)"
       },
+      animation: {
+        'attention-pulse': 'attention 2s infinite',
+      },
+      keyframes: {
+        attention: {
+          '0%': { boxShadow: '0 0 0 0 #FF8800FF' },
+          '70%': { boxShadow: '0 0 0 20px rgba(255,0,0, 0)' },
+          '100%': { boxShadow: '0 0 0 0 rgba(255,0,0, 0)' },
+        }
+      }
     },
   },
   plugins: [],

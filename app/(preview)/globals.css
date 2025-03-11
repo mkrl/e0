@@ -8,24 +8,6 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@font-face {
-  font-family: "uncut sans";
-  src: url("./uncut-sans.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "geist mono";
-  src: url("./geist-mono.woff2") format("woff2");
-}
-
-* {
-  font-family: "uncut sans", sans-serif;
-}
-
-code,
-pre {
-  font-family: "geist mono", monospace;
-}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -35,15 +17,52 @@ pre {
   }
 }
 
+
+@font-face {
+  font-family: "roboto";
+  src: url("./roboto-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "geist mono";
+  src: url("./geist-mono.woff2") format("woff2");
+}
+
+* {
+  font-family: "roboto", sans-serif;
+}
+
+code,
+pre {
+  font-family: "geist mono", monospace;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: conic-gradient(
+          from 139.29deg at 71.44% 100%,
+          #FFFFFF -30deg,
+          #FFFFFF 183.75deg,
+          #FF8800 269.3deg,
+          #FF4400 307.6deg,
+          #FFFFFF 330deg,
+          #FFFFFF 543.75deg
+  );
 }
+
+section {
+    scrollbar-track-color: transparent;
+    scrollbar-width: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: conic-gradient(from 147.68deg at 50% 105.23%, #000000 -30deg, #000000 177.21deg, #FF8800 274.6deg, #FF8800 322.5deg, #000000 330deg, #000000 537.21deg),
+        linear-gradient(150.76deg, #000000 0.53%, rgba(0, 0, 0, 0) 78.59%);
+    }
+}
+
+
 
 @layer utilities {
   .text-balance {
