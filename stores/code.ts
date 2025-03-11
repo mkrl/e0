@@ -31,3 +31,11 @@ export const setGenerationStarted = (started: boolean) => {
 export const setActiveFile = (filePath: string | null) => {
   $activeFile.set(filePath)
 }
+
+export const resetCode = () => {
+  $codeStore.set({})
+  $codePreview.set('')
+  $generationFinished.set(false)
+  $generationStarted.set(false)
+  $activeFile.set(null)
+}

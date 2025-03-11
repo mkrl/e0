@@ -16,12 +16,17 @@ const config: Config = {
       },
       animation: {
         'attention-pulse': 'attention 2s infinite',
+        'rotate': 'skew 0.4s ease-out forwards',
       },
       keyframes: {
         attention: {
           '0%': { boxShadow: '0 0 0 0 #FF8800FF' },
           '70%': { boxShadow: '0 0 0 20px rgba(255,0,0, 0)' },
           '100%': { boxShadow: '0 0 0 0 rgba(255,0,0, 0)' },
+        },
+        skew: {
+          '0%': { transform: 'rotate(0deg)', },
+          '100%': { transform: 'rotate(45deg)', },
         }
       }
     },

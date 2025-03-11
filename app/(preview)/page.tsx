@@ -8,14 +8,14 @@ import { Message } from '@/components/ui/Message'
 import { ChatForm } from '@/components/ui/ChatForm'
 import { Preview } from '@/components/ui/Preview'
 import { useStore } from '@nanostores/react'
-import { $generationStarted } from '@/stores/code'
-import { E0Logo } from '@/components/icons'
+import { $generationStarted, resetCode } from '@/stores/code'
+import { E0Logo, RestartIcon } from '@/components/icons'
 import { unstable_noStore as noStore } from 'next/cache';
 
 
 export default function Home() {
   noStore()
-  const { messages, input, handleSubmit, handleInputChange, status } =
+  const { messages, input, handleSubmit, handleInputChange, status, setMessages } =
     useChat({
       onError: () =>
         toast.error('You\'ve been rate limited, please try again later!')
@@ -39,21 +39,33 @@ export default function Home() {
     >
       <div className="flex flex-col justify-between gap-4 w-1/2 items-center">
         {messages.length > 0 ? (
-          <section
-            className="flex flex-col gap-4 h-full w-full items-center overflow-y-auto">
-            {messages.map((message, index) => (
-              <Message message={message} index={index} key={message.id}/>
-            ))}
+          <>
+            <button
+              className="absolute left-6 top-6 text-zinc-400 p-2 hover:animate-rotate"
+              onClick={() => {
+                setMessages([])
+                resetCode()
+              }}
+              title="Start over"
+            >
+              <RestartIcon />
+            </button>
+            <section
+              className="flex flex-col gap-4 h-full w-full items-center overflow-y-auto">
+              {messages.map((message, index) => (
+                <Message message={message} index={index} key={message.id}/>
+              ))}
 
-            {status === 'submitted' &&
-              messages[messages.length - 1].role !== 'assistant' && (
-                <Message loading message={{
-                  role: 'assistant', content: 'Thinking...', id: 'dummy', parts: []
-                }}/>
-              )}
+              {status === 'submitted' &&
+                messages[messages.length - 1].role !== 'assistant' && (
+                  <Message loading message={{
+                    role: 'assistant', content: 'Thinking...', id: 'dummy', parts: []
+                  }}/>
+                )}
 
-            <div ref={messagesEndRef}/>
-          </section>
+              <div ref={messagesEndRef}/>
+            </section>
+          </>
         ) : (
           <motion.div
             className="h-[350px] px-4 w-full md:w-[500px] md:px-0 pt-40 flex flex-col content-center items-center gap-8 flex-grow">
