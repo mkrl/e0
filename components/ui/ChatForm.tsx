@@ -19,7 +19,7 @@ export const ChatForm = ({ handleSubmit, input, handleInputChange, hasMessages }
       {/* Message Input */}
       <input
         className="bg-transparent flex-grow outline-none text-zinc-800 dark:text-zinc-300 placeholder-zinc-400"
-        placeholder="What would you like to build today?"
+        placeholder={hasMessages ? "Let's iterate on this!" : 'What would you like to build today?'}
         value={input}
         onChange={handleInputChange}
       />

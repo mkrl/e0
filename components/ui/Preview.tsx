@@ -75,6 +75,8 @@ export const Preview = () => {
             </div>
             <Editor
               className="h-full"
+              // While the code is being generated, show the preview code
+              // Otherwise, properly show the final code mapped by file path to its content
               value={activeFile && code[activeFile] ? code[activeFile] : codePreview}
               defaultLanguage="typescript"
               theme="vs-dark"

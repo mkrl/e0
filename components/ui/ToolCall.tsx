@@ -47,7 +47,8 @@ const GenerateCode = ({ part }: ToolCallProps) => {
 
   useEffect(() => {
     setActiveFile(null)
-    // Temporary code preview is required because it streamed together with the code
+    // Temporary code preview (with no file path) is required because the path is also streamed and
+    // can't be set from the beginning
     setCodePreview(part.toolInvocation?.args?.generatedCode ?? '')
     setGenerationFinished(false)
   }, [part.toolInvocation?.args])

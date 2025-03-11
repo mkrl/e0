@@ -5,7 +5,7 @@ import { SANDBOX_TIMEOUT } from '@/constants/sandbox'
 
 
 export const generateCodeTool = tool({
-  description: 'Install a package from the npm registry',
+  description: 'Generate code and run it in a sandbox',
   parameters: z.object({
     sandboxId: z
       .string()
