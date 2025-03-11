@@ -1,6 +1,4 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-
+import React from 'react';
 
 type ViewToggleProps = {
   showCode: boolean;
@@ -10,17 +8,15 @@ type ViewToggleProps = {
 export const PreviewViewToggle: React.FC<ViewToggleProps> = ({ showCode, onClick }) => {
   return (
     <div
-      className="flex items-center w-full rounded-full p-1 cursor-pointer"
+      className="flex items-center w-full rounded-full p-1 cursor-pointer relative"
       onClick={onClick}
     >
-      <motion.div
-        className="absolute h-8 rounded-full bg-primary shadow-sm"
-        initial={false}
-        animate={{
-          x: showCode ? 4 : '100%',
-          width: '48%'
-        }}
-        transition={{ type: 'spring', stiffness: 500, damping: 50 }}
+      <div
+        className={`absolute h-8 rounded-full bg-primary shadow-sm transition-all duration-300 ease-in-out ${
+          showCode
+            ? 'left-1 w-[48%]'
+            : 'left-[51%] w-[48%]'
+        }`}
       />
       <div className="relative flex w-full">
         <div className={`flex-1 flex justify-center py-1.5 text-sm font-medium z-10 transition-colors ${

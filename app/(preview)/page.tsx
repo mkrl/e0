@@ -46,7 +46,7 @@ export default function Home() {
             {status === 'submitted' &&
               messages[messages.length - 1].role !== 'assistant' && (
                 <Message loading message={{
-                  role: 'assistant', content: 'hmm...', id: 'dummy', parts: []
+                  role: 'assistant', content: 'Thinking...', id: 'dummy', parts: []
                 }}/>
               )}
 

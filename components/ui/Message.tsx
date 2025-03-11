@@ -33,7 +33,7 @@ export const Message = ({ message, index, loading }: MessageProps) => {
           }
         })}
         <div
-          className={`${loading ? 'text-zinc-200' : 'text-zinc-800 dark:text-white'} flex flex-col gap-4`}>
+          className={`${loading ? 'animate-pulse' : 'text-zinc-800 dark:text-white'} flex flex-col gap-4`}>
           <Markdown>{message.content}</Markdown>
         </div>
       </div>

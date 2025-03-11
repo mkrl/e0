@@ -45,7 +45,7 @@ export const Preview = () => {
   return (
     <div className="h-full w-1/2 p-10">
       <motion.div
-        className="flex flex-col bg-gray-800 h-full rounded-2xl overflow-hidden"
+        className="flex flex-col relative bg-gray-800 h-full rounded-2xl overflow-hidden"
         initial={{ y: 5, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
       >
