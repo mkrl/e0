@@ -79,11 +79,9 @@ export const Preview = () => {
               defaultLanguage="typescript"
               theme="vs-dark"
               beforeMount={(monaco) => {
-                monaco?.languages.typescript.typescriptDefaults.setCompilerOptions({
-                  // This stands for JSX = React
-                  jsx: 2
-                })
-
+                let options = monaco.languages.typescript.javascriptDefaults.getCompilerOptions()
+                options.jsx = 2
+                monaco.languages.typescript.javascriptDefaults.setCompilerOptions(options)
                 monaco?.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
                   noSemanticValidation: true,
                   noSyntaxValidation: true,
