@@ -3,8 +3,8 @@ import { ToolInvocationUIPart } from '@ai-sdk/ui-utils'
 import React, { FunctionComponent, useEffect } from 'react'
 import { ToolNameType } from '@/types/tools'
 import {
-  $codeStore,
-  setCode, setCodePreview,
+  setCode,
+  setCodePreview,
   setGenerationFinished,
   setGenerationStarted,
   setActiveFile
@@ -28,7 +28,7 @@ const CreateSandbox = ({ part }: ToolCallProps) => {
     case 'partial-call':
       return <>Creating sandbox...</>
     case 'result':
-      return <>{part.toolInvocation.result.sandboxLink}</>
+      return <a className="cursor-pointer underline underline-offset-2" href={part.toolInvocation.result.sandboxLink} target="_blank">Click to open a new window</a>
   }
 }
 const InstallPackage = ({ part }: ToolCallProps) => {
@@ -58,8 +58,6 @@ const GenerateCode = ({ part }: ToolCallProps) => {
         part.toolInvocation?.args?.filePath,
         part.toolInvocation?.args?.generatedCode
       )
-      // @ts-expect-error this is the intended way of removing the item from the store
-      $codeStore.setKey('temp', undefined)
       setActiveFile(part.toolInvocation?.args?.filePath)
       setGenerationFinished(true)
     }

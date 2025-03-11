@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
 
   const result = streamText({
-    model: openai('gpt-4o-mini'),
+    model: openai('gpt-4o'),
     toolCallStreaming: true,
     tools: {
       createSandbox: createSandboxTool,
