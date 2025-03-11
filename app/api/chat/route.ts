@@ -10,6 +10,9 @@ const openai = createOpenAI({
   apiKey: process.env.OPENAI_KEY
 })
 
+export const dynamic = 'force-dynamic';
+export const maxDuration = 50;
+
 export async function POST(req: Request) {
   noStore();
   const { messages } = await req.json()
@@ -45,6 +48,4 @@ export async function POST(req: Request) {
 
   return result.toDataStreamResponse()
 }
-
-export const dynamic = 'force-dynamic';
 
