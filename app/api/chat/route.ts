@@ -34,6 +34,8 @@ export async function POST(req: Request) {
       Every generated code response should be a valid Next.js component in one file, exported as a default function.
       Only use the generateCode tool to write the code, never send the code as a message to the user.
       Use correct formatting and line breaks. Keep the code clean and readable.
+      Do not forget to add export keyword to functions.
+      If you are asked to create a new file, you muust update the last generated file to import and use the new file.
     `,
     messages
   })
